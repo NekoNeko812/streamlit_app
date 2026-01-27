@@ -24,8 +24,8 @@ with tab1:
     st.write(year)
     st.write(want)
     df = df[df["都道府県"].isin(prefectures)]
-    for i in year:
-        df = df[df[f""]]
+    # for i in year:
+    #     df = df[df[f""]]
 
     st.write("単位：km")
     st.dataframe(df, width=800, height=220)
