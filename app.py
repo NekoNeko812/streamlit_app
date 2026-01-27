@@ -67,23 +67,31 @@ with tab2:
         
         value_cols = [c for c in selected_columns if c != "都道府県"]
 
-        # 2. px.bar に直接リストを渡す
-        fig = px.bar(
-            display_df,
-            x="都道府県",      # 横軸（数値）
-            y=value_cols,      # 縦軸（項目）
-            facet_col="都道府県", # 都道府県ごとにグラフを分割
-            barmode="group"
-        )
+        fig = go.Figure() # 土台
 
-        # 3. 凡例などの表示を整える（オプション）
+        #選択された項目ごとに「棒」を一つずつ足していくコード
+        for col in value_cols:
+            fig.add_trance(go.Bar(
+                x=display_df["都道府県"],
+                y=display_df[col],
+                name=col.split("/")[-1],
+                text=display_df[col]
+                textposition="auto"
+            ))
+
+        # レイアウト設定
         fig.update_layout(
+            barmode="group",
+            titke=f"{year}年度 道路状況比較"
             xaxis_title="都道府県",
-            yaxis_title="値",
-            legend_title="項目"
+            yaxis_title="数値",
+            legend_title="項目",
+            uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
+            uniformtext_minsize=8
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
     else:
         st.info("年と得たい情報を選択してください")          
           
