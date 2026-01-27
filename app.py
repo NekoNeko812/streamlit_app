@@ -22,8 +22,10 @@ with tab1:
                                 ["実延長", "舗装済延長", "舗装率"])
 
     st.write(year)
+    st.write(want)
     df = df[df["都道府県"].isin(prefectures)]
-    # df = df[df["media"]==want]
+    for i in year:
+        df = df[df[f""]]
 
     st.write("単位：km")
     st.dataframe(df, width=800, height=220)
