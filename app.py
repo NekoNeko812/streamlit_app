@@ -82,7 +82,7 @@ with tab2:
         # レイアウト設定
         fig.update_layout(
             barmode="group",
-            titke=f"{year}年度 道路状況比較",
+            title=f"{year}年度 道路状況比較",
             xaxis_title="都道府県",
             yaxis_title="数値",
             legend_title="項目",
