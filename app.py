@@ -36,6 +36,7 @@ with tab1:
     if len(year) > 0 and len(want) > 0:
         display_df = filtered_df[selected_colmns]
         st.write("単位：km")
+        display_df.set_index("都道府県", inplace=True)
         st.dataframe(display_df)
     else:
         st.info("年と得たい情報を選択してください")
