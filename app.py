@@ -75,19 +75,19 @@ with tab2:
                 x=display_df["都道府県"],
                 y=display_df[col],
                 name=col.split("/")[-1],
-                text=display_df[col]
+                text=display_df[col],
                 textposition="auto"
             ))
 
         # レイアウト設定
         fig.update_layout(
             barmode="group",
-            titke=f"{year}年度 道路状況比較"
+            titke=f"{year}年度 道路状況比較",
             xaxis_title="都道府県",
             yaxis_title="数値",
             legend_title="項目",
             uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
-            uniformtext_minsize=8
+            uniformtext_minsize=8,
         )
 
         st.plotly_chart(fig, use_container_width=True)
