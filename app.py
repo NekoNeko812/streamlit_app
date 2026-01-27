@@ -71,7 +71,7 @@ with tab2:
 
         #選択された項目ごとに「棒」を一つずつ足していくコード
         for col in value_cols:
-            fig.add_trance(go.Bar(
+            fig.add_trace(go.Bar(
                 x=display_df["都道府県"],
                 y=display_df[col],
                 name=col.split("/")[-1],
