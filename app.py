@@ -58,7 +58,7 @@ with tab2:
         if col_name in df.columns:
             selected_columns.append(col_name)
 
-    if len(year) > 0 and len(want) > 0:
+    if len(want) > 0:
         display_df = filtered_df[selected_columns]
         st.write("単位：実延長・舗装済延長(km), 舗装率(%)")
         
