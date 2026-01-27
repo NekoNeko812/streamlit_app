@@ -10,4 +10,3 @@ st.write("test")
 #   selected_cats = st.multiselect("都道府県を選択してください（複数選択可）",
 #                           df["都道府県"].unique())
 
-
