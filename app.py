@@ -70,8 +70,8 @@ with tab2:
         # 2. px.bar に直接リストを渡す
         fig = px.bar(
             display_df,
-            x=value_cols,      # 横軸（数値）
-            y="都道府県",      # 縦軸（項目）
+            x="都道府県",      # 横軸（数値）
+            y=value_cols,      # 縦軸（項目）
             facet_col="都道府県", # 都道府県ごとにグラフを分割
             barmode="group"
         )
