@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.title("都道府県別道路の実延長と舗装済延長の推移")
-
+st.write("test")
 df = pd.read_csv("都道府県別道路の実延長と舗装済延長.csv", encoding="shift_jis")
 
 with st.sidebar:
