@@ -52,6 +52,9 @@ with tab2:
     with st.expander("得たい情報選択"):
           year = st.selectbox("年を指定してください",
                           range(2016, 2025))
+    
+    st.write(year)
+    st.write(want)
 
     for j in want:
         col_name = f"{year}/{j}"
@@ -67,10 +70,10 @@ with tab2:
         # 2. px.bar に直接リストを渡す
         fig = px.bar(
             display_df,
-            x="都道府県",   # 横軸
-            y=value_cols,   # 描画したい列名のリストをそのまま渡す
-            barmode="group", # グループ棒グラフ
-            title="年度別比較"
+            x=value_cols,      # 横軸（数値）
+            y="都道府県",      # 縦軸（項目）
+            facet_col="都道府県", # 都道府県ごとにグラフを分割
+            barmode="group"
         )
 
         # 3. 凡例などの表示を整える（オプション）
