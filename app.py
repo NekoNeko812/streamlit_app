@@ -125,9 +125,9 @@ with tab3:
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
         for col in value_cols_line:
             fig_line.add_trace(go.Scatter(
-                x=year_line,
+                x=col,
                 y=display[col],
-                mode="lines",
+                mode="lines+markers",
                 name=col,
                 text=display[col],
                 textposition="auto"
