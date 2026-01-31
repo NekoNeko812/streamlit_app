@@ -106,7 +106,7 @@ with tab2:
                 marker=dict(
                     color="orange",
                     line=dict(
-                        width=2,
+                        width=1,
                         color="white")
                 ),
             ))
