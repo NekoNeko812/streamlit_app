@@ -13,7 +13,7 @@ with st.sidebar:
   prefectures = st.multiselect("検索したい都道府県を選択してください（複数選択可）",
                           df["都道府県"].unique())
   want = st.multiselect("得たい情報を選択してください",
-                            ["実延長", "舗装済延長"])
+                            ["実延長", "舗装済延長", "舗装率"])
 
 filtered = df[df["都道府県"].isin(prefectures)]
 
@@ -123,13 +123,12 @@ with tab3:
         fig_line = go.Figure() # 土台
 
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-        for col in value_cols_line:
-            fig_line.add_trace(go.Scatter(
-                x=col,
-                y=display[col],
+        fig_line.add_trace(go.Scatter(
+                x=year_line,
+                y=display[value_cols_line],
                 mode="lines+markers",
-                name=col,
-                text=display[col],
+                name=value_cols_line,
+                text=display[value_cols_line],
                 textposition="auto"
             ))
 
