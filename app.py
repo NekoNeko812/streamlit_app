@@ -138,12 +138,12 @@ with tab2:
             title=f"{year_bar}年 道路状況比較",
             xaxis_title="都道府県",
             legend=dict(
-                title_text="凡例",  # 凡例を横並びにする
-                orientation="h",    # 凡例の上を起点にする
-                yanchor="top",      # グラフの下側
-                y=-0.3,             # 凡例の中央を起点にする
-                xanchor="center",   # グラフの真ん中
-                x=0.5,
+                title_text="凡例",  
+                orientation="h",    # 凡例を横並びにする
+                yanchor="bottom",   # 凡例の下を起点にする
+                y=1.1,              # グラフの上側
+                xanchor="center",   # 凡例の中央を起点にする
+                x=0.5,              # グラフの真ん中
             ),
             uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
             uniformtext_minsize=8,
