@@ -41,7 +41,7 @@ with tab1:
 
 
 
-    if len(year_df) > 0 and len(want) > 0:
+    if (len(year_df) > 0 and len(want) > 0) or per == True:
         display = filtered[selected_columns_df]
         st.write("単位：km")
         display.set_index("都道府県", inplace=True)
@@ -60,7 +60,7 @@ with tab2:
     st.write(want)
 
 
-    if len(want) > 0 and per != True:
+    if len(want) > 0 or per == True:
         for j in want:
             selected_columns_bar.append(f"{year_bar}/{j}")
             
