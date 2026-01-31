@@ -105,7 +105,9 @@ with tab2:
                 mode="markers",
                 marker=dict(
                     color="orange",
-                    line_width=2,
+                    line=dict(
+                        width=2,
+                        color="white")
                 ),
             ))
         # レイアウト設定
