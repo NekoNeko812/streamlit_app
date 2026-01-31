@@ -72,7 +72,7 @@ with tab2:
        
 
         fig_bar = go.Figure() # 土台
-        if per != True or len(want) == 1:
+        if per != True or len(want) == 0:
             value_cols_bar = [c for c in selected_columns_bar if c != "都道府県"]
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
             for col in value_cols_bar:
