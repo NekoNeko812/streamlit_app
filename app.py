@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
+st.set_page_config(layout="wide")       # 横幅をブラウザに合わせる
+
 st.title("都道府県別道路の実延長と舗装済延長の推移")
 st.write("test")
 
