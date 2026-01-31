@@ -7,90 +7,90 @@ st.title("都道府県別道路の実延長と舗装済延長の推移")
 st.write("test")
 
 df = pd.read_csv("都道府県別道路の実延長と舗装済延長.csv", encoding="shift_jis")
-selected_columns = ["都道府県"]
 
 with st.sidebar:
-  st.subheader("表示する都道府県")
+  st.subheader("表示する情報")
   prefectures = st.multiselect("検索したい都道府県を選択してください（複数選択可）",
                           df["都道府県"].unique())
   want = st.multiselect("得たい情報を選択してください",
                             ["実延長", "舗装済延長"])
 
-filtered_df = df[df["都道府県"].isin(prefectures)]
+filtered = df[df["都道府県"].isin(prefectures)]
 
 tab1, tab2, tab3 = st.tabs(["表", "指定年", "複数年"])
 
 # 表のタブ
 with tab1:
     st.header("表")
+    selected_columns_df = ["都道府県"]
 
-    with st.expander("得たい情報選択"):
-          year = st.multiselect("年を指定してください",
+    with st.expander("年"):
+          year_df = st.multiselect("年を指定してください",
                           list(range(2016, 2025)))
 
 
-    st.write(year)
+    st.write(year_df)
     st.write(want)
 
-    for i in year:
+    for i in year_df:
         for j in want:
             col_name = f"{i}/{j}"
             if col_name in df.columns:
-                selected_columns.append(col_name)
+                selected_columns_df.append(col_name)
 
-    if len(year) > 0 and len(want) > 0:
-        display_df = filtered_df[selected_columns]
+    if len(year_df) > 0 and len(want) > 0:
+        display = filtered[selected_columns_df]
         st.write("単位：km")
-        display_df.set_index("都道府県", inplace=True)
-        st.dataframe(display_df)
+        display.set_index("都道府県", inplace=True)
+        st.dataframe(display)
     else:
-        st.info("年と得たい情報を選択してください")
+        st.info("都道府県と年と得たい情報を選択してください")
 # 指定年のタブ
 with tab2:
     st.header("指定年")
-    
-    with st.expander("得たい情報選択"):
-          year = st.selectbox("年を指定してください",
+    selected_columns_bar = ["都道府県"]
+    with st.expander("年"):
+          year_bar = st.selectbox("年を指定してください",
                           range(2016, 2025))
     
-    st.write(year)
+    st.write(year_bar)
     st.write(want)
 
     for j in want:
-        col_name = f"{year}/{j}"
+        col_name = f"{year_bar}/{j}"
         if col_name in df.columns:
-            selected_columns.append(col_name)
+            selected_columns_bar.append(col_name)
 
     if len(want) > 0:
-        display_df = filtered_df[selected_columns]
+        display = filtered[selected_columns_bar]
         st.write("単位：km")
         
-        value_cols = [c for c in selected_columns if c != "都道府県"]
+        value_cols_bar = [c for c in selected_columns_bar if c != "都道府県"]
 
-        fig = go.Figure() # 土台
+        fig_bar = go.Figure() # 土台
 
-        #選択された項目ごとに「棒」を一つずつ足していくコード
-        for col in value_cols:
-            fig.add_trace(go.Bar(
-                x=display_df["都道府県"],
-                y=display_df[col],
+        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+        for col in value_cols_bar:
+            fig_bar.add_trace(go.Bar(
+                x=display["都道府県"],
+                y=display[col],
                 name=col.split("/")[-1],
-                text=display_df[col],
+                text=display[col],
                 textposition="auto"
             ))
 
         # レイアウト設定
-        fig.update_layout(
+        fig_bar.update_layout(
             barmode="group",
-            title=f"{year}年度 道路状況比較",
+            title=f"{year_bar}年 道路状況比較",
             xaxis_title="都道府県",
-            yaxis_title="数値",
+            yaxis_title="延長",
             legend_title="項目",
             uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
             uniformtext_minsize=8,
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig_bar, use_container_width=True)
 
     else:
         st.info("年と得たい情報を選択してください")          
@@ -99,3 +99,51 @@ with tab2:
 # 複数年のタブ
 with tab3:
     st.header("複数年")
+    selected_columns_line = ["都道府県"]
+    with st.expander("年"):
+          year_line = st.multiselect("年を指定してください",
+                          list(range(2016, 2025)))
+          
+    st.write(year_line)
+    st.write(want)
+
+    for i in year_line:
+        for j in want:
+            col_name = f"{i}/{j}"
+            if col_name in df.columns:
+                selected_columns_line.append(col_name)
+
+
+    if len(want) > 0 and len(year_line):
+        display = filtered[selected_columns_line]
+        st.write("単位：km")
+        
+        value_cols_line = [c for c in selected_columns_line if c != "都道府県"]
+
+        fig_line = go.Figure() # 土台
+
+        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+        for col in value_cols_line:
+            fig_line.add_trace(go.Scatter(
+                x=year_line,
+                y=display[col],
+                mode="lines",
+                name=col,
+                text=display[col],
+                textposition="auto"
+            ))
+
+        # レイアウト設定
+        fig_line.update_layout(
+            title=f"{year_line[1]}年~{year_line[-1]}年 道路状況比較",
+            xaxis_title="年",
+            yaxis_title="延長",
+            legend_title="項目",
+            uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
+            uniformtext_minsize=8,
+        )
+
+        st.plotly_chart(fig_line, use_container_width=True)
+
+    else:
+        st.info("年と得たい情報を選択してください") 
