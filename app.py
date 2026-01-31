@@ -97,7 +97,7 @@ with tab2:
                 yaxis="y1",
                 ))
 
-            fig_bar.add_trace(go.scatter(
+            fig_bar.add_trace(go.Scatter(
                 x=display["都道府県"],
                 y=display[f"{year_bar}/舗装率"],
                 name=f"{year_bar}/舗装率",
@@ -110,6 +110,11 @@ with tab2:
             title=f"{year_bar}年 道路状況比較",
             xaxis_title="都道府県",
             yaxis_title="延長",
+            yaxis2=dict(title="舗装率(%)",
+                        overlaying="y",
+                        side="right",
+                        range=[0, 100] # 率は0-100に固定
+                        ),
             legend_title="項目",
             uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
             uniformtext_minsize=8,
