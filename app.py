@@ -14,7 +14,7 @@ with st.sidebar:
                           df["都道府県"].unique())
   want = st.multiselect("得たい情報を選択してください",
                             ["実延長", "舗装済延長"])
-  per = st.checkbox("舗装率は表示しますか？", "舗装率")
+  per = st.checkbox("舗装率は表示しますか？", value=False)
 
 filtered = df[df["都道府県"].isin(prefectures)]
 
