@@ -115,7 +115,7 @@ with tab2:
             fig_bar.update_layout(
                 yaxis=dict(title="舗装率(%)",
                         overlaying="y",
-                        side="left",
+                        side="right",
                         range=[0, 100] # 率は0-100に固定
                         ))
         else:
@@ -138,7 +138,7 @@ with tab2:
                 title_text="凡例",  # 凡例を横並びにする
                 orientation="h",    # 凡例の上を起点にする
                 yanchor="top",      # グラフの下側
-                y=-0.5,             # 凡例の中央を起点にする
+                y=-0.3,             # 凡例の中央を起点にする
                 xanchor="center",   # グラフの真ん中
                 x=0.5,
             ),
