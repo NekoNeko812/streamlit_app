@@ -109,7 +109,10 @@ with tab2:
             barmode="group",
             title=f"{year_bar}年 道路状況比較",
             xaxis_title="都道府県",
-            yaxis_title="延長",
+            yaxis=dict(
+                title="延長",
+                side="left"
+                ),
             yaxis2=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
