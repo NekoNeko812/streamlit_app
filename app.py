@@ -100,9 +100,13 @@ with tab2:
             fig_bar.add_trace(go.Scatter(
                 x=display["都道府県"],
                 y=display[f"{year_bar}/舗装率"],
-                name=f"{year_bar}/舗装率",
+                name="舗装率",
                 yaxis="y2",
                 mode="markers",
+                marker=dict(
+                    color="orange",
+                    line_width=2,
+                ),
             ))
         # レイアウト設定
         fig_bar.update_layout(
@@ -118,7 +122,14 @@ with tab2:
                         side="right",
                         range=[0, 100] # 率は0-100に固定
                         ),
-            legend_title="項目",
+            legend=dict(
+                title_text="凡例",  # 凡例を横並びにする
+                orientation="h",    # 凡例の上を起点にする
+                yanchor="top",      # グラフの下側
+                y=-0.5,             # 凡例の中央を起点にする
+                xanchor="center",   # グラフの真ん中
+                x=0.5,
+            ),
             uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
             uniformtext_minsize=8,
         )
