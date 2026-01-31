@@ -25,7 +25,7 @@ with tab1:
     selected_columns_df = ["都道府県"]
 
     with st.expander("年"):
-          year_df = st.multiselect("年を指定してください",
+          year_df = st.multiselect("表で表示する年を指定してください",
                           list(range(2016, 2025)))
 
 
@@ -50,7 +50,7 @@ with tab2:
     st.header("指定年")
     selected_columns_bar = ["都道府県"]
     with st.expander("年"):
-          year_bar = st.selectbox("年を指定してください",
+          year_bar = st.selectbox("棒グラフで表示する年を指定してください",
                           range(2016, 2025))
     
     st.write(year_bar)
@@ -101,7 +101,7 @@ with tab3:
     st.header("複数年")
     selected_columns_line = ["都道府県"]
     with st.expander("年"):
-          year_line = st.multiselect("年を指定してください",
+          year_line = st.multiselect("折れ線グラフで表示する年を指定してください",
                           list(range(2016, 2025)))
           
     st.write(year_line)
