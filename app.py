@@ -41,7 +41,7 @@ with tab1:
 
 
 
-    if (len(year_df) > 0 and len(want) > 0) or per == True:
+    if len(year_df) > 0 and (len(want) > 0 or per == True):
         display = filtered[selected_columns_df]
         st.write("単位：km")
         display.set_index("都道府県", inplace=True)
