@@ -111,10 +111,15 @@ with tab2:
                 ),
             ))
         # レイアウト設定
-        fig_bar.update_layout(
-            barmode="group",
-            title=f"{year_bar}年 道路状況比較",
-            xaxis_title="都道府県",
+        if per==True and len(want)==0:
+            fig_bar.update_layout(
+                yaxis=dict(
+                title="舗装率",
+                side="left"
+                ),
+            )
+        else:
+            fig_bar.update_layout(
             yaxis=dict(
                 title="延長",
                 side="left"
@@ -124,6 +129,11 @@ with tab2:
                         side="right",
                         range=[0, 100] # 率は0-100に固定
                         ),
+            )            
+        fig_bar.update_layout(
+            barmode="group",
+            title=f"{year_bar}年 道路状況比較",
+            xaxis_title="都道府県",
             legend=dict(
                 title_text="凡例",  # 凡例を横並びにする
                 orientation="h",    # 凡例の上を起点にする
