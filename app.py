@@ -13,7 +13,8 @@ with st.sidebar:
   prefectures = st.multiselect("検索したい都道府県を選択してください（複数選択可）",
                           df["都道府県"].unique())
   want = st.multiselect("得たい情報を選択してください",
-                            ["実延長", "舗装済延長", "舗装率"])
+                            ["実延長", "舗装済延長"])
+  per = st.checkbox("舗装率は表示しますか？", "舗装率")
 
 filtered = df[df["都道府県"].isin(prefectures)]
 
@@ -34,9 +35,11 @@ with tab1:
 
     for i in year_df:
         for j in want:
-            col_name = f"{i}/{j}"
-            if col_name in df.columns:
-                selected_columns_df.append(col_name)
+            selected_columns_df.append(f"{i}/{j}")
+        if per == True:
+            selected_columns_df.append(f"{i}/舗装率")
+
+
 
     if len(year_df) > 0 and len(want) > 0:
         display = filtered[selected_columns_df]
@@ -56,29 +59,51 @@ with tab2:
     st.write(year_bar)
     st.write(want)
 
-    for j in want:
-        col_name = f"{year_bar}/{j}"
-        if col_name in df.columns:
-            selected_columns_bar.append(col_name)
 
     if len(want) > 0:
+        for j in want:
+            selected_columns_bar.append(f"{year_bar}/{j}")
+            
+        if per == True:
+            selected_columns_bar.append(f"{year_bar}/舗装率")
         display = filtered[selected_columns_bar]
         st.write("単位：km")
         
-        value_cols_bar = [c for c in selected_columns_bar if c != "都道府県"]
+       
 
         fig_bar = go.Figure() # 土台
-
+        if per != True or len(want) == 1:
+            value_cols_bar = [c for c in selected_columns_bar if c != "都道府県"]
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-        for col in value_cols_bar:
-            fig_bar.add_trace(go.Bar(
+            for col in value_cols_bar:
+                fig_bar.add_trace(go.Bar(
+                    x=display["都道府県"],
+                    y=display[col],
+                    name=col.split("/")[-1],
+                    text=display[col],
+                    textposition="auto"
+                ))
+        else:
+            colmuns_perin=[]
+            for i in want:
+                colmuns_perin.append(f"{year_bar}/{i}")
+            for col in colmuns_perin:                
+                fig_bar.add_trace(go.Bar(
                 x=display["都道府県"],
                 y=display[col],
                 name=col.split("/")[-1],
                 text=display[col],
-                textposition="auto"
-            ))
+                textposition="auto",
+                yaxis="y1",
+                ))
 
+            fig_bar.add_trace(go.scatter(
+                x=display["都道府県"],
+                y=display[f"{year_bar}/舗装率"],
+                name=f"{year_bar}/舗装率",
+                yaxis="y2",
+                mode="markers",
+            ))
         # レイアウト設定
         fig_bar.update_layout(
             barmode="group",
@@ -109,9 +134,9 @@ with tab3:
 
     for i in year_line:
         for j in want:
-            col_name = f"{i}/{j}"
-            if col_name in df.columns:
-                selected_columns_line.append(col_name)
+            selected_columns_line.append(f"{i}/{j}")
+        if per == True:
+            selected_columns_line.append(f"{i}/舗装率")
 
 
     if len(want) > 0 and len(year_line):
