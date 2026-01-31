@@ -113,11 +113,11 @@ with tab2:
         # レイアウト設定
         if per==True and len(want)==0:
             fig_bar.update_layout(
-                yaxis=dict(
-                title="舗装率",
-                side="left"
-                ),
-            )
+                yaxis=dict(title="舗装率(%)",
+                        overlaying="y",
+                        side="left",
+                        range=[0, 100] # 率は0-100に固定
+                        ))
         else:
             fig_bar.update_layout(
             yaxis=dict(
