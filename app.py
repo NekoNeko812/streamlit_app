@@ -14,7 +14,7 @@ with st.sidebar:
   prefectures = st.multiselect("検索したい都道府県を選択してください（複数選択可）",
                           df["都道府県"].unique())
   want = st.multiselect("得たい情報を選択してください",
-                            ["実延長", "舗装済延長", "舗装率"])
+                            ["実延長", "舗装済延長"])
 
 filtered_df = df[df["都道府県"].isin(prefectures)]
 
@@ -40,7 +40,7 @@ with tab1:
 
     if len(year) > 0 and len(want) > 0:
         display_df = filtered_df[selected_columns]
-        st.write("単位：実延長・舗装済延長(km), 舗装率(%)")
+        st.write("単位：km")
         display_df.set_index("都道府県", inplace=True)
         st.dataframe(display_df)
     else:
@@ -63,7 +63,7 @@ with tab2:
 
     if len(want) > 0:
         display_df = filtered_df[selected_columns]
-        st.write("単位：実延長・舗装済延長(km), 舗装率(%)")
+        st.write("単位：km")
         
         value_cols = [c for c in selected_columns if c != "都道府県"]
 
