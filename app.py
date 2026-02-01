@@ -180,45 +180,42 @@ with tab3:
        
 
         fig_line = go.Figure() # 土台
-        # 延長
-        if "実延長" in want:
-        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-            for pre in prefectures:
-                for i in year_line:
-                    fig_line.add_trace(go.Scatter(
-                        x=year_line,
-                        y=display[f"{i}/実延長"],
-                        name=f"{pre}の実延長",
-                        text=display[f"{i}/実延長"],
-                        yaxis="y1",
-                        mode="markers+lines",                  
-                    ))
-                # 延長
-        if "舗装済延長" in want:
-        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-            for pre in prefectures:
-                for i in year_line:
-                    fig_line.add_trace(go.Scatter(
-                        x=year_line,
-                        y=display[f"{i}/舗装済延長"],
-                        name=f"{pre}の舗装済延長",
-                        text=display[f"{i}/舗装済延長"],
-                        yaxis="y1",
-                        mode="markers+lines",
-                    )
-                    )
-        if per == True:
-        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-            for pre in prefectures:
-                for i in year_line:
-                    fig_line.add_trace(go.Scatter(
-                        x=year_line,
-                        y=display[f"{i}/舗装率"],
-                        name=f"{pre}の舗装率",
-                        text=display[f"{i}/舗装率"],
-                        yaxis="y2",
-                        mode="markers+lines"
-                    ))
+        # 各都道府県ごとにループを回す
+        for pre in prefectures:
+            # その都道府県の行だけを取得
+            pref_data = display[display["都道府県"] == pre]
+            
+            # 実延長の描画
+            if "実延長" in want:
+                y_val = [pref_data[f"{y}/実延長"].values[0] for y in year_line]
+                fig_line.add_trace(go.Scatter(
+                    x=year_line,
+                    y=y_val,
+                    name=f"{pre}/実延長",
+                    mode="lines+markers",
+                    yaxis="y1"
+                ))
+            
+            # 舗装済延長の描画
+            if "舗装済延長" in want:
+                y_val = [pref_data[f"{y}/舗装済延長"].values[0] for y in year_line]
+                fig_line.add_trace(go.Scatter(
+                    x=year_line,
+                    y=y_val,
+                    name=f"{pre}/舗装済延長",
+                    mode="lines+markers",
+                    yaxis="y1"
+                ))
+            # 舗装率の描画（右軸）
+            if per:
+                y_val = [pref_data[f"{y}/舗装率"].values[0] for y in year_line]
+                fig_line.add_trace(go.Scatter(
+                    x=year_line,
+                    y=y_val,
+                    name=f"{pre}/舗装率",
+                    mode="lines+markers",
+                    yaxis="y2"
+                ))                
 
         # レイアウト設定
         if per==True and len(want)==0:
