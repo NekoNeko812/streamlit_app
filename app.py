@@ -47,7 +47,7 @@ with tab1:
 
     if len(prefectures)>0 and len(year_df) > 0 and (len(want) > 0 or per == True):
         display = filtered[selected_columns_df]
-        st.write("単位：km")
+        st.write("単位：実延長・舗装済延長（km）, 舗装率（%）")
         display.set_index("都道府県", inplace=True)
         st.dataframe(display)
     else:
@@ -169,7 +169,7 @@ with tab3:
     # st.write(want)
 
 
-    if len(prefectures)>0 and len(year_df) > 0 and (len(want) > 0 or per == True):
+    if len(prefectures)>0 and len(year_line) > 0 and (len(want) > 0 or per == True):
         for i in year_line:
             for j in want:
                 selected_columns_line.append(f"{i}/{j}")
