@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")       # 横幅をブラウザに合わせる
 colors = px.colors.qualitative.Plotly
 
 st.title("都道府県別道路の実延長及び舗装状況の推移")
-# st.write("test")
+st.write("※東日本大震災の影響により、福島県の市町村道の一部は最新データになっていない部分がある。")
 
 df = pd.read_csv("都道府県別道路の実延長と舗装済延長.csv", encoding="shift_jis")
 
@@ -15,10 +15,10 @@ with st.sidebar:
   st.subheader("表示する情報")
   prefectures = st.multiselect("検索したい都道府県を選択してください（複数選択可）",
                           df["都道府県"].unique())
-  st.text("得たい情報")
-  want = st.multiselect("得たい情報を選択してください",
+  st.text("得たい数値")
+  want = st.multiselect("実延長、舗装済延長の表示",
                             ["実延長", "舗装済延長"])
-  per = st.checkbox("舗装率は表示しますか？", value=False)      # 元から選択されていない
+  per = st.checkbox("舗装率の表示", value=False)      # 元から選択されていない
 
 filtered = df[df["都道府県"].isin(prefectures)]
 
@@ -29,8 +29,8 @@ with tab1:
     st.header("表")
     selected_columns_df = ["都道府県"]
 
-    with st.expander("年"):
-          year_df = st.multiselect("表で表示する年を指定してください",
+    with st.expander("年度"):
+          year_df = st.multiselect("表で表示する年度を指定してください",
                           list(range(2016, 2025)))
 
 
@@ -47,18 +47,18 @@ with tab1:
 
     if len(prefectures)>0 and len(year_df) > 0 and (len(want) > 0 or per == True):
         display = filtered[selected_columns_df]
-        st.write("単位：実延長・舗装済延長(km, 舗装率(%)")
+        st.write("単位：実延長・舗装済延長(km), 舗装率(%)")
         display.set_index("都道府県", inplace=True)
         st.dataframe(display)
     else:
-        st.info("都道府県と年と得たい情報を選択してください")
+        st.info("都道府県と年度と得たい数値を選択してください")
 
 # 指定年のタブ
 with tab2:
     st.header("指定年")
     selected_columns_bar = ["都道府県"]
-    with st.expander("年"):
-          year_bar = st.selectbox("棒グラフで表示する年を指定してください",
+    with st.expander("年度"):
+          year_bar = st.selectbox("棒グラフで表示する年度を指定してください",
                           range(2016, 2025))
     
     # st.write(year_bar)
@@ -137,7 +137,7 @@ with tab2:
             )            
         fig_bar.update_layout(              # 基本設定
             barmode="group",
-            title=f"{year_bar}年 道路状況比較",
+            title=f"{year_bar}年度 道路状況比較",
             xaxis_title="都道府県",
             legend=dict(
                 title_text="凡例",  
@@ -154,15 +154,15 @@ with tab2:
         st.plotly_chart(fig_bar, use_container_width=True)
 
     else:
-        st.info("都道府県と年と得たい情報を選択してください")          
+        st.info("都道府県と年度と得たい数値を選択してください")          
           
 
 # 複数年のタブ
 with tab3:
     st.header("複数年")
     selected_columns_line = ["都道府県"]
-    with st.expander("年"):
-          year_line = st.multiselect("折れ線グラフで表示する年を指定してください",
+    with st.expander("年度"):
+          year_line = st.multiselect("折れ線グラフで表示する年度を指定してください",
                           list(range(2016, 2025)))
           
     # st.write(year_line)
@@ -190,7 +190,7 @@ with tab3:
             
             # 実延長の描画
             if "実延長" in want:
-                y_val = [pre_data[f"{y}/実延長"].values[0] for y in year_line]      #現在の行の選ばれた年の実延長の「数値」のみを入手
+                y_val = [pre_data[f"{y}/実延長"].values[0] for y in year_line]      #現在の行の選ばれた年度の実延長の「数値」のみを入手
                 fig_line.add_trace(go.Scatter(
                     x=year_line,
                     y=y_val,
@@ -202,7 +202,7 @@ with tab3:
             
             # 舗装済延長の描画
             if "舗装済延長" in want:
-                y_val = [pre_data[f"{y}/舗装済延長"].values[0] for y in year_line]      #現在の行の選ばれた年の舗装済延長の「数値」のみを入手
+                y_val = [pre_data[f"{y}/舗装済延長"].values[0] for y in year_line]      #現在の行の選ばれた年度の舗装済延長の「数値」のみを入手
                 fig_line.add_trace(go.Scatter(
                     x=year_line,
                     y=y_val,
@@ -213,7 +213,7 @@ with tab3:
                 ))
             # 舗装率の描画（右軸）
             if per:
-                y_val = [pre_data[f"{y}/舗装率"].values[0] for y in year_line]      #現在の行の選ばれた年の舗装率の「数値」のみを入手
+                y_val = [pre_data[f"{y}/舗装率"].values[0] for y in year_line]      #現在の行の選ばれた年度の舗装率の「数値」のみを入手
                 fig_line.add_trace(go.Scatter(
                     x=year_line,
                     y=y_val,
@@ -245,7 +245,7 @@ with tab3:
             )            
         fig_line.update_layout(
             title="複数年 道路状況比較",
-            xaxis_title="年",
+            xaxis_title="年度",
             legend=dict(
                 title_text="凡例",  
                 orientation="h",    # 凡例を横並びにする
@@ -261,4 +261,4 @@ with tab3:
         st.plotly_chart(fig_line, use_container_width=True)
 
     else:
-        st.info("都道府県と年と得たい情報を選択してください")          
+        st.info("都道府県と年度と得たい数値を選択してください")          
