@@ -185,7 +185,7 @@ with tab3:
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
             for pre in prefectures:
                 for i in year_line:
-                    fig_bar.add_trace(go.Scatter(
+                    fig_line.add_trace(go.Scatter(
                         x=i,
                         y=display[f"{i}/実延長"],
                         name=f"{pre}の実延長",
@@ -199,7 +199,7 @@ with tab3:
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
             for pre in prefectures:
                 for i in year_line:
-                    fig_bar.add_trace(go.Scatter(
+                    fig_line.add_trace(go.Scatter(
                         x=i,
                         y=display[f"{i}/舗装済延長"],
                         name=f"{pre}の舗装済延長",
@@ -213,7 +213,7 @@ with tab3:
         #選択された項目ごとに「棒の情報」を一つずつ足していくコード
             for pre in prefectures:
                 for i in year_line:
-                    fig_bar.add_trace(go.Scatter(
+                    fig_line.add_trace(go.Scatter(
                         x=i,
                         y=display[f"{i}/舗装率"],
                         name=f"{pre}の舗装率",
@@ -225,14 +225,14 @@ with tab3:
 
         # レイアウト設定
         if per==True and len(want)==0:
-            fig_bar.update_layout(
+            fig_line.update_layout(
                 yaxis=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
                         range=[0, 100] # 率は0-100に固定
                         ))
         else:
-            fig_bar.update_layout(
+            fig_line.update_layout(
             yaxis=dict(
                 title="延長",
                 side="left"
@@ -243,7 +243,7 @@ with tab3:
                         range=[0, 100] # 率は0-100に固定
                         ),
             )            
-        fig_bar.update_layout(
+        fig_line.update_layout(
             barmode="group",
             title=f"{year_bar}年 道路状況比較",
             xaxis_title="都道府県",
