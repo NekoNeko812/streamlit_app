@@ -222,34 +222,7 @@ with tab3:
                         yaxis="y2",
                         mode="markers+lines"
                     ))
-        else:
-            colmuns_perin=[]
-            for i in want:
-                colmuns_perin.append(f"{year_bar}/{i}")
-            for col in colmuns_perin:                
-                fig_bar.add_trace(go.Bar(
-                x=display["都道府県"],
-                y=display[col],
-                name=col.split("/")[-1],
-                text=display[col],
-                textposition="auto",
-                yaxis="y1",
-                ))
 
-            fig_bar.add_trace(go.Scatter(
-                x=display["都道府県"],
-                y=display[f"{year_bar}/舗装率"],
-                name="舗装率",
-                yaxis="y2",
-                mode="markers",
-                marker=dict(
-                    color="orange",
-                    size=10,
-                    line=dict(
-                        width=1,
-                        color="white")
-                ),
-            ))
         # レイアウト設定
         if per==True and len(want)==0:
             fig_bar.update_layout(
