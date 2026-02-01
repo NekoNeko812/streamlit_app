@@ -167,14 +167,130 @@ with tab3:
     st.write(year_line)
     st.write(want)
 
-    for i in year_line:
-        for j in want:
-            selected_columns_line.append(f"{i}/{j}")
+
+    if (len(want) > 0 or per == True) and len(year_line) != 0 :
+        for i in year_line:
+            for j in want:
+                selected_columns_line.append(f"{i}/{j}")
+            if per == True:
+                selected_columns_line.append(f"{i}/舗装率")
+        display = filtered[selected_columns_line]
+        st.write("単位：km")
+        
+       
+
+        fig_line = go.Figure() # 土台
+        # 延長
+        if "実延長" in want:
+        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+            for pre in prefectures:
+                for i in year_line:
+                    fig_bar.add_trace(go.Scatter(
+                        x=i,
+                        y=display[f"{i}/実延長"],
+                        name=f"{pre}の実延長",
+                        text=display[f"{i}/実延長"],
+                        textposition="auto",
+                        yaxis="y1",
+                        mode="markers+lines",                  
+                    ))
+                # 延長
+        if "舗装済延長" in want:
+        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+            for pre in prefectures:
+                for i in year_line:
+                    fig_bar.add_trace(go.Scatter(
+                        x=i,
+                        y=display[f"{i}/舗装済延長"],
+                        name=f"{pre}の舗装済延長",
+                        text=display[f"{i}/舗装済延長"],
+                        textposition="auto",
+                        yaxis="y1",
+                        mode="markers+lines",
+                    )
+                    )
         if per == True:
-            selected_columns_line.append(f"{i}/舗装率")
+        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+            for pre in prefectures:
+                for i in year_line:
+                    fig_bar.add_trace(go.Scatter(
+                        x=i,
+                        y=display[f"{i}/舗装率"],
+                        name=f"{pre}の舗装率",
+                        text=display[f"{i}/舗装率"],
+                        textposition="auto",
+                        yaxis="y2",
+                        mode="markers+lines"
+                    ))
+        else:
+            colmuns_perin=[]
+            for i in want:
+                colmuns_perin.append(f"{year_bar}/{i}")
+            for col in colmuns_perin:                
+                fig_bar.add_trace(go.Bar(
+                x=display["都道府県"],
+                y=display[col],
+                name=col.split("/")[-1],
+                text=display[col],
+                textposition="auto",
+                yaxis="y1",
+                ))
 
+            fig_bar.add_trace(go.Scatter(
+                x=display["都道府県"],
+                y=display[f"{year_bar}/舗装率"],
+                name="舗装率",
+                yaxis="y2",
+                mode="markers",
+                marker=dict(
+                    color="orange",
+                    size=10,
+                    line=dict(
+                        width=1,
+                        color="white")
+                ),
+            ))
+        # レイアウト設定
+        if per==True and len(want)==0:
+            fig_bar.update_layout(
+                yaxis=dict(title="舗装率(%)",
+                        overlaying="y",
+                        side="right",
+                        range=[0, 100] # 率は0-100に固定
+                        ))
+        else:
+            fig_bar.update_layout(
+            yaxis=dict(
+                title="延長",
+                side="left"
+                ),
+            yaxis2=dict(title="舗装率(%)",
+                        overlaying="y",
+                        side="right",
+                        range=[0, 100] # 率は0-100に固定
+                        ),
+            )            
+        fig_bar.update_layout(
+            barmode="group",
+            title=f"{year_bar}年 道路状況比較",
+            xaxis_title="都道府県",
+            legend=dict(
+                title_text="凡例",  
+                orientation="h",    # 凡例を横並びにする
+                yanchor="bottom",   # 凡例の下を起点にする
+                y=1.1,              # グラフの上側
+                xanchor="center",   # 凡例の中央を起点にする
+                x=0.5,              # グラフの真ん中
+            ),
+            uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
+            uniformtext_minsize=8,
+        )
 
-    if len(want) > 0 and len(year_line):
+        st.plotly_chart(fig_bar, use_container_width=True)
+
+    else:
+        st.info("年と得たい情報を選択してください")          
+    if len(want) > 0 or per != True and len(year_line) > 0:
         display = filtered[selected_columns_line]
         st.write("単位：km")
         
