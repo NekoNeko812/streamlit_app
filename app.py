@@ -246,8 +246,8 @@ with tab3:
             legend=dict(
                 title_text="凡例",  
                 orientation="h",    # 凡例を横並びにする
-                yanchor="top",   # 凡例の下を起点にする
-                y=0.5,              # グラフの上側
+                yanchor="top",      # 凡例の下を起点にする
+                y=-0.3,              # グラフの下側
                 xanchor="center",   # 凡例の中央を起点にする
                 x=0.5,              # グラフの真ん中
             ),
