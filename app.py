@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")       # 横幅をブラウザに合わせる
-
+colors = px.colors.qualitative.Plotly
 
 st.title("都道府県別道路の実延長と舗装済延長の推移")
 st.write("test")
@@ -181,7 +181,10 @@ with tab3:
 
         fig_line = go.Figure() # 土台
         # 各都道府県ごとにループを回す
-        for pre in prefectures:
+        for idx, pre in enumerate(prefectures):
+            # 都道府県ごとに色を固定（リストの数を超えたらループするように % を使用）
+            color = colors[idx % len(colors)]
+
             # その都道府県の行だけを取得
             pref_data = display[display["都道府県"] == pre]
             
@@ -193,7 +196,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/実延長",
                     mode="lines+markers",
-                    line=dict(dash='solid'),
+                    line=dict(dash='solid', color=color),
                     yaxis="y1"
                 ))
             
@@ -205,7 +208,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/舗装済延長",
                     mode="lines+markers",
-                    line=dict(dash='dash'),
+                    line=dict(dash='dash', color=color),
                     yaxis="y1"
                 ))
             # 舗装率の描画（右軸）
@@ -216,7 +219,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/舗装率",
                     mode="lines+markers",
-                    line=dict(dash='dot'),
+                    line=dict(dash='dot', color=color),
                     yaxis="y2"
                 ))                
 
