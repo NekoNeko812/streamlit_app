@@ -241,8 +241,7 @@ with tab3:
                         ),
             )            
         fig_line.update_layout(
-            barmode="group",
-            title=f"{year_bar}年 道路状況比較",
+            title=f"複数年 道路状況比較",
             xaxis_title="都道府県",
             legend=dict(
                 title_text="凡例",  
@@ -256,7 +255,7 @@ with tab3:
             uniformtext_minsize=8,
         )
 
-        st.plotly_chart(fig_bar, use_container_width=True)
+        st.plotly_chart(fig_line, use_container_width=True)
 
     else:
         st.info("年と得たい情報を選択してください")          
