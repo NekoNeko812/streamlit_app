@@ -120,7 +120,7 @@ with tab2:
                 yaxis=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
-                        range=[0, 100] # 率は0-100に固定
+                        range=[0, 75] # 率は0-100に固定
                         ))
         else:
             fig_bar.update_layout(
@@ -131,7 +131,7 @@ with tab2:
             yaxis2=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
-                        range=[0, 100] # 率は0-100に固定
+                        range=[0, 75] # 率は0-100に固定
                         ),
             )            
         fig_bar.update_layout(
@@ -229,7 +229,7 @@ with tab3:
                 yaxis=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
-                        range=[0, 100] # 率は0-100に固定
+                        range=[0, 75] # 率は0-100に固定
                         ))
         else:
             fig_line.update_layout(
@@ -240,7 +240,7 @@ with tab3:
             yaxis2=dict(title="舗装率(%)",
                         overlaying="y",
                         side="right",
-                        range=[0, 100] # 率は0-100に固定
+                        range=[0, 75] # 率は0-100に固定
                         ),
             )            
         fig_line.update_layout(
