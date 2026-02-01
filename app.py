@@ -290,35 +290,35 @@ with tab3:
 
     else:
         st.info("年と得たい情報を選択してください")          
-    if len(want) > 0 or per != True and len(year_line) > 0:
-        display = filtered[selected_columns_line]
-        st.write("単位：km")
+    # if len(want) > 0 or per != True and len(year_line) > 0:
+    #     display = filtered[selected_columns_line]
+    #     st.write("単位：km")
         
-        value_cols_line = [c for c in selected_columns_line if c != "都道府県"]
+    #     value_cols_line = [c for c in selected_columns_line if c != "都道府県"]
 
-        fig_line = go.Figure() # 土台
+    #     fig_line = go.Figure() # 土台
 
-        #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-        fig_line.add_trace(go.Scatter(
-                x=year_line,
-                y=display[value_cols_line],
-                mode="lines+markers",
-                name=value_cols_line,
-                text=display[value_cols_line],
-                textposition="auto"
-            ))
+    #     #選択された項目ごとに「棒の情報」を一つずつ足していくコード
+    #     fig_line.add_trace(go.Scatter(
+    #             x=year_line,
+    #             y=display[value_cols_line],
+    #             mode="lines+markers",
+    #             name=value_cols_line,
+    #             text=display[value_cols_line],
+    #             textposition="auto"
+    #         ))
 
-        # レイアウト設定
-        fig_line.update_layout(
-            title=f"{year_line[1]}年~{year_line[-1]}年 道路状況比較",
-            xaxis_title="年",
-            yaxis_title="延長",
-            legend_title="項目",
-            uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
-            uniformtext_minsize=8,
-        )
+    #     # レイアウト設定
+    #     fig_line.update_layout(
+    #         title=f"{year_line[1]}年~{year_line[-1]}年 道路状況比較",
+    #         xaxis_title="年",
+    #         yaxis_title="延長",
+    #         legend_title="項目",
+    #         uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
+    #         uniformtext_minsize=8,
+    #     )
 
-        st.plotly_chart(fig_line, use_container_width=True)
+    #     st.plotly_chart(fig_line, use_container_width=True)
 
-    else:
-        st.info("年と得たい情報を選択してください") 
+    # else:
+    #     st.info("年と得たい情報を選択してください") 
