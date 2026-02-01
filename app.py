@@ -190,7 +190,6 @@ with tab3:
                         y=display[f"{i}/実延長"],
                         name=f"{pre}の実延長",
                         text=display[f"{i}/実延長"],
-                        textposition="auto",
                         yaxis="y1",
                         mode="markers+lines",                  
                     ))
@@ -204,7 +203,6 @@ with tab3:
                         y=display[f"{i}/舗装済延長"],
                         name=f"{pre}の舗装済延長",
                         text=display[f"{i}/舗装済延長"],
-                        textposition="auto",
                         yaxis="y1",
                         mode="markers+lines",
                     )
@@ -218,7 +216,6 @@ with tab3:
                         y=display[f"{i}/舗装率"],
                         name=f"{pre}の舗装率",
                         text=display[f"{i}/舗装率"],
-                        textposition="auto",
                         yaxis="y2",
                         mode="markers+lines"
                     ))
