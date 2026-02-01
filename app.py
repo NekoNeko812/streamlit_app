@@ -193,6 +193,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/実延長",
                     mode="lines+markers",
+                    line=dict(dash='solid'),
                     yaxis="y1"
                 ))
             
@@ -204,6 +205,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/舗装済延長",
                     mode="lines+markers",
+                    line=dict(dash='dash'),
                     yaxis="y1"
                 ))
             # 舗装率の描画（右軸）
@@ -214,6 +216,7 @@ with tab3:
                     y=y_val,
                     name=f"{pre}/舗装率",
                     mode="lines+markers",
+                    line=dict(dash='dot'),
                     yaxis="y2"
                 ))                
 
@@ -243,8 +246,8 @@ with tab3:
             legend=dict(
                 title_text="凡例",  
                 orientation="h",    # 凡例を横並びにする
-                yanchor="bottom",   # 凡例の下を起点にする
-                y=1.1,              # グラフの上側
+                yanchor="top",   # 凡例の下を起点にする
+                y=0.5,              # グラフの上側
                 xanchor="center",   # 凡例の中央を起点にする
                 x=0.5,              # グラフの真ん中
             ),
@@ -256,35 +259,3 @@ with tab3:
 
     else:
         st.info("年と得たい情報を選択してください")          
-    # if len(want) > 0 or per != True and len(year_line) > 0:
-    #     display = filtered[selected_columns_line]
-    #     st.write("単位：km")
-        
-    #     value_cols_line = [c for c in selected_columns_line if c != "都道府県"]
-
-    #     fig_line = go.Figure() # 土台
-
-    #     #選択された項目ごとに「棒の情報」を一つずつ足していくコード
-    #     fig_line.add_trace(go.Scatter(
-    #             x=year_line,
-    #             y=display[value_cols_line],
-    #             mode="lines+markers",
-    #             name=value_cols_line,
-    #             text=display[value_cols_line],
-    #             textposition="auto"
-    #         ))
-
-    #     # レイアウト設定
-    #     fig_line.update_layout(
-    #         title=f"{year_line[1]}年~{year_line[-1]}年 道路状況比較",
-    #         xaxis_title="年",
-    #         yaxis_title="延長",
-    #         legend_title="項目",
-    #         uniformtext_mode='hide',       # 小さすぎる数値テキストを隠す
-    #         uniformtext_minsize=8,
-    #     )
-
-    #     st.plotly_chart(fig_line, use_container_width=True)
-
-    # else:
-    #     st.info("年と得たい情報を選択してください") 
