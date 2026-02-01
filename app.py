@@ -186,7 +186,7 @@ with tab3:
             for pre in prefectures:
                 for i in year_line:
                     fig_line.add_trace(go.Scatter(
-                        x=i,
+                        x=year_line,
                         y=display[f"{i}/実延長"],
                         name=f"{pre}の実延長",
                         text=display[f"{i}/実延長"],
@@ -199,7 +199,7 @@ with tab3:
             for pre in prefectures:
                 for i in year_line:
                     fig_line.add_trace(go.Scatter(
-                        x=i,
+                        x=year_line,
                         y=display[f"{i}/舗装済延長"],
                         name=f"{pre}の舗装済延長",
                         text=display[f"{i}/舗装済延長"],
@@ -212,7 +212,7 @@ with tab3:
             for pre in prefectures:
                 for i in year_line:
                     fig_line.add_trace(go.Scatter(
-                        x=i,
+                        x=year_line,
                         y=display[f"{i}/舗装率"],
                         name=f"{pre}の舗装率",
                         text=display[f"{i}/舗装率"],
