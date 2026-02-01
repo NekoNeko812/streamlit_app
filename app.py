@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")       # 横幅をブラウザに合わせる
 colors = px.colors.qualitative.Plotly
 
 st.title("都道府県別道路の実延長及び舗装状況の推移")
-st.write("test")
+# st.write("test")
 
 df = pd.read_csv("都道府県別道路の実延長と舗装済延長.csv", encoding="shift_jis")
 
@@ -47,7 +47,7 @@ with tab1:
 
     if len(prefectures)>0 and len(year_df) > 0 and (len(want) > 0 or per == True):
         display = filtered[selected_columns_df]
-        st.write("単位：実延長・舗装済延長（km）, 舗装率（%）")
+        st.write("単位：実延長・舗装済延長(km, 舗装率(%)")
         display.set_index("都道府県", inplace=True)
         st.dataframe(display)
     else:
@@ -126,7 +126,7 @@ with tab2:
         else:                               # 舗装率以外もあるとき
             fig_bar.update_layout(
             yaxis=dict(
-                title="延長",
+                title="延長(km)",
                 side="left"
                 ),
             yaxis2=dict(title="舗装率(%)",
